@@ -1,0 +1,1 @@
+10/09/2024 Forked the Main repo to my own repository, then cloned it to my PC. Added a text file to show my work logs.
