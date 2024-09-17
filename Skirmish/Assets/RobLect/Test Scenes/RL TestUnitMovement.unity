@@ -5070,7 +5070,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    vectorLabel1_3: W
+    vectorLabel1_3: 
 --- !u!1 &1450786472
 GameObject:
   m_ObjectHideFlags: 0
@@ -5385,3 +5385,4 @@ SceneRoots:
   - {fileID: 1966796228}
   - {fileID: 1450786477}
   - {fileID: 869826781}
+
