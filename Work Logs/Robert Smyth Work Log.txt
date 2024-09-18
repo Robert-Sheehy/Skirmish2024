@@ -1,2 +1,6 @@
 10/09/2024 Forked the Main repo to my own repository, then cloned it to my PC. Added a text file to show my work logs.
 14/09/2024 Synced the Fork and cloned to my personal PC. 
+
+18/09/2024 Synced fork with RobLect repo. Cloned to computer lab PC. Corrected folder structure and moved my movement 
+	   script and ball with particles to my own folder!
+	   NOTE: Removed ball with particles from RobLect scene to my own!
