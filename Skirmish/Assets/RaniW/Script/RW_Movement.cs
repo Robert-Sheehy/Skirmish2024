@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement : MonoBehaviour
+public class RW_Movement : MonoBehaviour
 {
     private float rotSpeed = 360;
     private float currentSpeed = 13;
