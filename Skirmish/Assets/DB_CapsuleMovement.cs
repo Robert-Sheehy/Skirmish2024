@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CapsuleMovement : MonoBehaviour
+public class DB_CapsuleMovement : MonoBehaviour
 {
     public float moveSpeed = 5f; // Speed of movement
 
