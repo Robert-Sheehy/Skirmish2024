@@ -13,11 +13,11 @@ public class Player_Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += new Vector3 (1, 1, 1);
+       
 
-        if()
+        if(Input.GetKey(KeyCode.W))
         {
-
+            transform.position += new Vector3(1, 1, 1);
         }
     }
 }
