@@ -4,36 +4,53 @@ using UnityEngine;
 
 public class RW_Movement : MonoBehaviour
 {
-    private float rotSpeed = 360;
-    private float currentSpeed = 13;
+    float speed = 3f;
+    float turningSpeed = 45f;
 
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = new Vector3(1, 2, 3);
+        transform.position = new Vector3(0,0,0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position += new Vector3(1, 2, 3) * Time.deltaTime;
+        
+            if (shouldMoveForward()) moveForward();
+            if (shouldTurnLeft()) turnLeft();
 
-        if (Input.GetKey(KeyCode.W))
-        {
-            transform.Rotate(Vector3.up, rotSpeed * Time.deltaTime);
-            ;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.Rotate(Vector3.up, -rotSpeed * Time.deltaTime);
-            
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            transform.position += currentSpeed * transform.forward * Time.deltaTime;
-            
-        }
+
 
         
+
+
+
+
     }
+
+
+    private void turnLeft()
+    {
+        transform.Rotate(new Vector3(0, 1, 0), turningSpeed * Time.deltaTime);
+    }
+
+    private bool shouldTurnLeft()
+    {
+        return Input.GetKey(KeyCode.A);
+    }
+
+    private void moveForward()
+    {
+        transform.position += speed * transform.forward * Time.deltaTime;
+    }
+
+    private bool shouldMoveForward()
+    {
+        //if (Input.GetKey(KeyCode.W)) return true;
+        //else return false;
+
+        return Input.GetKey(KeyCode.W);
+    }
+
 }
