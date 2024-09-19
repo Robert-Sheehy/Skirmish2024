@@ -5,6 +5,7 @@ using UnityEngine;
 public class DB_CapsuleMovement : MonoBehaviour
 {
     public float moveSpeed = 5f; // Speed of movement
+    float turningSpeed = 45f;
 
     // Start is called before the first frame update
     void Start()
@@ -23,5 +24,28 @@ public class DB_CapsuleMovement : MonoBehaviour
 
         // Move the capsule
         transform.Translate(movement * moveSpeed * Time.deltaTime, Space.World);
+
+        if (shouldTurnLeft()) turnLeft();
+        if (shouldTurnRight()) turnRight();
+    }
+
+    private void turnLeft()
+    {
+        transform.Rotate(new Vector3(0, 1, 0), turningSpeed * Time.deltaTime);
+    }
+
+    private bool shouldTurnLeft()
+    {
+        return Input.GetKey(KeyCode.Q);
+    }
+
+    private void turnRight()
+    {
+        transform.Rotate(new Vector3(0, -1, 0), turningSpeed * Time.deltaTime);
+    }
+
+    private bool shouldTurnRight()
+    {
+        return Input.GetKey(KeyCode.E);
     }
 }
