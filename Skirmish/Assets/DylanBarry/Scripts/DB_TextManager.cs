@@ -13,7 +13,9 @@ public class DB_TextManager : MonoBehaviour
         DB_TextInstanceScript myText = mytextGO.GetComponent<DB_TextInstanceScript>();
         myText.initialize("Hello");
         myText.SetText("Hello");
-     //   myText.AttachTo();
+        mytextGO.transform.SetParent(transform);
+
+        // myText.AttachTo();
     }
 
     // Update is called once per frame
