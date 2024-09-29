@@ -14,9 +14,9 @@ public class rs_textDriver : MonoBehaviour
     {
         Transform myTextGO = Instantiate(TextCloneTemplate);
         rs_TestInstanceScript myText = myTextGO.GetComponent<rs_TestInstanceScript>();
-        myText.initialize("Hello");
+        myText.initialize("Welcome");
         myText.SetText("Hello");
-        myText.SetColor(Color.black);
+        myText.SetColor(Color.green);
         myText.SetPosition(new Vector2 (1 , 1));
         myText.AttachTo(theGnome);
     }
