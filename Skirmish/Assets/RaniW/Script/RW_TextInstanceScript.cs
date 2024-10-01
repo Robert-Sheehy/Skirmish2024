@@ -40,4 +40,14 @@ public class RW_TextInstanceScript : MonoBehaviour
     {
         throw new NotImplementedException();
     }
+
+    internal void SetColor(Color red)
+    {
+        throw new NotImplementedException();
+    }
+
+    internal void SetPosition(Vector2 vector2)
+    {
+        throw new NotImplementedException();
+    }
 }
