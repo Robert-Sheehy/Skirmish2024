@@ -5,10 +5,15 @@ using UnityEngine;
 
 public class rs_TestInstanceScript : MonoBehaviour
 {
+    float timer = 0;
+    bool isFlashing = false;
+    float flashFrequency;
     TMPro.TextMeshPro m_TextMeshPro;
 
     internal void AttachTo(Transform transformToAttachTo)
     {
+        m_TextMeshPro.alignment = TMPro.TextAlignmentOptions.Center;
+        m_TextMeshPro.rectTransform.pivot = new Vector2(0.5f, 0);
         transform.parent = transformToAttachTo;
     }
 
@@ -16,6 +21,7 @@ public class rs_TestInstanceScript : MonoBehaviour
     {
         m_TextMeshPro = GetComponent<TMPro.TextMeshPro>();
         m_TextMeshPro.text = newText;
+        m_TextMeshPro.rectTransform.anchoredPosition = Vector3.zero;
     }
 
     internal void SetText(string newText)
@@ -32,8 +38,16 @@ public class rs_TestInstanceScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        positionOverParent();
-        transform.LookAt(Camera.main.transform.position);
+        if (isFlashing)
+        {
+            timer += Time.deltaTime;
+            m_TextMeshPro.alpha = Mathf.Pow(Mathf.Cos(timer*flashFrequency * Mathf.PI), 2);
+
+
+        }
+
+
+        transform.LookAt(2 * transform.position - Camera.main.transform.position);
     }
 
     private void positionOverParent()
@@ -41,13 +55,22 @@ public class rs_TestInstanceScript : MonoBehaviour
         throw new NotImplementedException();
     }
 
-    internal void SetColor(Color black)
+    internal void SetColor(Color newColor)
     {
-        throw new NotImplementedException();
+        m_TextMeshPro.color = newColor;
     }
 
     internal void SetPosition(Vector2 vector2)
     {
-        throw new NotImplementedException();
+      
+
+    }
+
+    internal void StartFlash(float frequencyOfFlash)
+    {
+        flashFrequency = frequencyOfFlash;
+        m_TextMeshPro.alpha = 1.0f;
+        timer = 0;
+        isFlashing = true;
     }
 }
