@@ -41,9 +41,9 @@ public class rs_TestInstanceScript : MonoBehaviour
         throw new NotImplementedException();
     }
 
-    internal void SetColor(Color black)
+    internal void SetColor(Color newColor)
     {
-        throw new NotImplementedException();
+      m_TextMeshPro.color = newColor;
     }
 
     internal void SetPosition(Vector2 vector2)
