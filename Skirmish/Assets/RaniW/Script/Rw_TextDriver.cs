@@ -9,11 +9,13 @@ public class Rw_TextDriver : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+     
         Transform elftextGO = Instantiate(TestCloneTemplet);
-        RW_TextInstanceScript elfText = elftextGO.GetComponent<RW_TextInstanceScript>();
+        RL_TestInstanceScript elfText = elftextGO.GetComponent<RL_TestInstanceScript>();
         elfText.initialize("Hello");
         elfText.SetText("Hello");
-
+        elfText.SetColor(Color.red);
+        elfText.SetPosition(new Vector2(1, 1));
         elfText.AttachTo(theGnome);
     }
 
