@@ -1,20 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class CW_TextDriver : MonoBehaviour
 {
     public Transform theGnome;
     public Transform TextCloneTemplate;
+    CW_TextInstance theManager;
     // Start is called before the first frame update
     void Start()
     {
-        Transform myTextGO = Instantiate(TextCloneTemplate);
-        CW_TextInstance myText = myTextGO.GetComponent<CW_TextInstance>();
+        theManager = FindObjectOfType<CW_TextInstance>();
+
+        CW_TextInstance myText = CW_TextInstance.GetText();
         myText.Initialise("Hello");
         myText.SetText("Hello");
+        myText.SetColor(Color.green);
+        myText.SetPosition(new Vector2 (1,1));
+        //myText.AttachTo(theGnome);
+        myText.StartFlash(4.0f);
 
-        myText.AttachTo(theGnome);
+        CW_TextInstance myOtherText = CW_TextInstance.GetText();
+        myOtherText.Initialise("Goodbye!");
+        myOtherText.SetText("Goodbye!");
+        myOtherText.SetColor(Color.red);
     }
 
     // Update is called once per frame
