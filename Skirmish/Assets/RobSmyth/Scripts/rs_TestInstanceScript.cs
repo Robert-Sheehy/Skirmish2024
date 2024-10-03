@@ -57,6 +57,7 @@ public class rs_TestInstanceScript : MonoBehaviour
 
     internal void SetColor(Color newColor)
     {
+
         m_TextMeshPro.color = newColor;
     }
 
