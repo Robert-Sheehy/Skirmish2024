@@ -17,14 +17,15 @@ public class CW_TextDriver : MonoBehaviour
         myText.Initialise("Hello");
         myText.SetText("Hello");
         myText.SetColor(Color.green);
-        myText.SetPosition(new Vector2 (1,1));
-        //myText.AttachTo(theGnome);
+        myText.SetPosition(new Vector2 (2,1));
+        myText.AttachTo(theGnome);
         myText.StartFlash(4.0f);
 
         CW_TextInstance myOtherText = CW_TextInstance.GetText();
         myOtherText.Initialise("Goodbye!");
         myOtherText.SetText("Goodbye!");
         myOtherText.SetColor(Color.red);
+        myOtherText.SetPosition (new Vector2 (2,1));
     }
 
     // Update is called once per frame
