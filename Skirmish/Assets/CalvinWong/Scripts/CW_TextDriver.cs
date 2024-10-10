@@ -23,7 +23,7 @@ public class CW_TextDriver : MonoBehaviour
 
         CW_TextInstance myOtherText = CW_TextInstance.GetText();
         myOtherText.Initialise("Goodbye!");
-        myOtherText.SetText("Goodbye!");
+        //myOtherText.SetText("Goodbye!");
         myOtherText.SetColor(Color.red);
         myOtherText.SetPosition (new Vector2 (2,1));
     }
