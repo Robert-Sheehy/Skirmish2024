@@ -5,7 +5,7 @@ using UnityEngine;
 public class RSmyth_moveBall : MonoBehaviour
 {
     float speed = 3f;
-    float turningSpeed = 45f;
+    float turningSpeed = 75f;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,12 +25,12 @@ public class RSmyth_moveBall : MonoBehaviour
 
     private void turnLeft()
     {
-        transform.Rotate(new Vector3(0, 1, 0), turningSpeed * Time.deltaTime);
+        transform.Rotate(new Vector3(0, -1, 0), turningSpeed * Time.deltaTime);
     }
 
     private void turnRight()
     {
-        transform.Rotate(new Vector3(0, -1, 0), turningSpeed * Time.deltaTime);
+        transform.Rotate(new Vector3(0, 1, 0), turningSpeed * Time.deltaTime);
     }
 
     private bool shouldTurnLeft()
