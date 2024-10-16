@@ -157,6 +157,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theArcher: {fileID: 107922228}
+  moveSpeed: 10
+  rotationSpeed: 100
+  zoomSpeed: 5
+  minZoom: 5
+  maxZoom: 50
 --- !u!4 &149814909
 Transform:
   m_ObjectHideFlags: 0
@@ -604,6 +609,7 @@ GameObject:
   - component: {fileID: 2097690722}
   - component: {fileID: 2097690721}
   - component: {fileID: 2097690720}
+  - component: {fileID: 2097690723}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -685,6 +691,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2097690723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2097690719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1aa51f4d949a0243b63e5c7da1b9cc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  theArcher: {fileID: 107922228}
+  moveSpeed: 10
+  rotationSpeed: 100
+  zoomSpeed: 5
+  minZoom: 5
+  maxZoom: 50
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

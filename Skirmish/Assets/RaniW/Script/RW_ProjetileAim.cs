@@ -19,6 +19,7 @@ public class RW_ProjetileAim : MonoBehaviour
     public float minZoom = 5f;
     public float maxZoom = 50f;
 
+
     private Camera cam;
 
     // Start is called before the first frame update
@@ -41,6 +42,12 @@ public class RW_ProjetileAim : MonoBehaviour
        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Debug.DrawRay(ray.origin, ray.direction * 50);
         RaycastHit info;
+
+        //print(Input.mouseScrollDelta.y);
+        //print(Input.mouseScrollDelta.x);
+        if (shouldMoveIn()) moveIn();
+        if (shouldMoveOut()) moveOut();
+
         if (Physics.Raycast(ray, out info))
         {
             print("Hit" + info.transform.gameObject.name);
@@ -71,6 +78,14 @@ public class RW_ProjetileAim : MonoBehaviour
             {
                 transform.Translate(Vector3.right * moveSpeed * Time.deltaTime, Space.World);
             }
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                transform.Translate(Vector3.up * moveSpeed * Time.deltaTime, Space.World);
+            }
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                transform.Translate(Vector3.down * moveSpeed * Time.deltaTime, Space.World);
+            }
 
             // Rotate camera left/right using A and D keys
             if (Input.GetKey(KeyCode.A))
@@ -83,13 +98,37 @@ public class RW_ProjetileAim : MonoBehaviour
             }
 
             // Zoom in/out using mouse scroll
-            cam.orthographicSize = Mathf.Clamp(cam.orthographicSize - Input.GetAxis("Mouse ScrollWheel") * zoomSpeed, minZoom, maxZoom);
+            //cam.orthographicSize = Mathf.Clamp(cam.orthographicSize - Input.GetAxis("Mouse ScrollWheel") * zoomSpeed, minZoom, maxZoom);
 
         }
+
+        //private bool shouldMove(){}
         //using UnityEngine;
 
 
     
+    }
+
+    private void moveOut()
+    {
+        transform.position -= transform.forward;
+        //transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, minHeight, maxHeight), transform.position.z);
+        //throw new NotImplementedException();
+    }
+
+    private void moveIn()
+    {
+        //throw new NotImplementedException();
+    }
+
+    private bool shouldMoveOut()
+    {
+        throw new NotImplementedException();
+    }
+
+    private bool shouldMoveIn()
+    {
+        throw new NotImplementedException();
     }
 
 
