@@ -11,15 +11,12 @@ public class PF_ProjectileAim : MonoBehaviour
     float areaTargetMaxRange = 20;
     float defaultScale = 0.1f;
     float tinyLift = 0.01f;
-
     public Transform theArcher;
 
     void Start()
     {
         targetPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
-
         targetPlane.GetComponent<Collider>().enabled = false;
-
         targetPlane.transform.position = Vector3.zero;
         targetPlane.transform.rotation = Quaternion.identity;
         targetPlane.transform.localScale = defaultScale*Vector3.one;
@@ -37,28 +34,31 @@ public class PF_ProjectileAim : MonoBehaviour
         }
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
         Debug.DrawRay(ray.origin, ray.direction*50);
-            RaycastHit info;
+        RaycastHit info;
 
-            if (Physics.Raycast(ray, out info))
+        if (Physics.Raycast(ray, out info))
+        {
+            print("Hit" + info.transform.gameObject.name);
 
-                print("Hit" + info.transform.gameObject.name);
+            targetPlane.transform.up = info.normal;
+            targetPlane.transform.position = info.point + tinyLift * info.normal;
+            targetPlane.transform.localScale = defaultScale * Vector3.one;
 
-                targetPlane.transform.up = info.normal;
-                targetPlane.transform.position = info.point + tinyLift*info.normal;
-                targetPlane.transform.localScale = defaultScale * Vector3.one;
+            float distanceFromArcherToPoint = Vector3.Distance(theArcher.position, info.point);
 
-                float distanceFromArcherToPoint = Vector3.Distance(theArcher.position, info.point);
-
-                if (distanceFromArcherToPoint < singleTargetMaxRange)
-                    myRenderer.material.color = Color.green;
-                else
-                    if (distanceFromArcherToPoint < areaTargetMaxRange)
-                        myRenderer.material.color = Color.Lerp(Color.red,Color.yellow, 0.5f);
-                        else
-                { 
-                    myRenderer.material.color = Color.red;
-                }
+            if (distanceFromArcherToPoint < singleTargetMaxRange)
+            {
+                myRenderer.material.color = Color.green;
+            }
+            else if (distanceFromArcherToPoint < areaTargetMaxRange)
+            {
+                myRenderer.material.color = Color.Lerp(Color.red, Color.yellow, 0.5f);
+            }
+            else
+            {
+                myRenderer.material.color = Color.red;
+            }
+        }
     }
 }
