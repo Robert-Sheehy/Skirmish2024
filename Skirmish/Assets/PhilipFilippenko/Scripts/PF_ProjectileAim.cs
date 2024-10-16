@@ -11,11 +11,12 @@ public class PF_ProjectileAim : MonoBehaviour
     float areaTargetMaxRange = 20;
     float defaultScale = 0.1f;
     float tinyLift = 0.01f;
+    public GameObject theArcher;
 
     void Start()
     {
         targetPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
-        targetPlane.GetComponent<Collider>(). = false;
+        targetPlane.GetComponent<Collider>().enabled = false;
         targetPlane.transform.position = Vector3.zero;
         targetPlane.transform.rotation = Quaternion.identity;
         targetPlane.transform.localScale = defaultScale*Vector3.one;
@@ -34,7 +35,7 @@ public class PF_ProjectileAim : MonoBehaviour
                 targetPlane.transform.position = info.point + tinyLift*info.normal;
                 targetPlane.transform.localScale = defaultScale * Vector3.one;
 
-                float distanceFromArcherToPoint = Vector3.Distance(theArcher.transform.position info.point);
+                float distanceFromArcherToPoint = Vector3.Distance(theArcher.transform.position,  info.point);
                 if (distanceFromArcherToPoint < singleTargetMaxRange)
                     myRenderer.material.color = Color.green;
                 else
