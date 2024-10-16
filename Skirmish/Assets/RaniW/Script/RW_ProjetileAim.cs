@@ -13,16 +13,26 @@ public class RW_ProjetileAim : MonoBehaviour
     float tinyLift = 0.01f;
     public GameObject theArcher;
 
+    public float moveSpeed = 10f;
+    public float rotationSpeed = 100f;
+    public float zoomSpeed = 5f;
+    public float minZoom = 5f;
+    public float maxZoom = 50f;
+
+    private Camera cam;
+
     // Start is called before the first frame update
     void Start()
     {
+        cam = Camera.main;
         targetPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
         targetPlane.GetComponent<Collider>().enabled = false; 
         targetPlane.transform.position = Vector3.zero;
         targetPlane.transform.rotation = Quaternion.identity;
         targetPlane.transform.localScale = 0.1f*Vector3.one;
         myRender = targetPlane.GetComponent<Renderer>();
-        myRender.material.color = Color.red;
+        myRender.material.color = Color.red;        
+        transform.rotation = Quaternion.Euler(90f, 0f, 0f);  // Set bird's-eye view
     }
 
     // Update is called once per frame
@@ -52,11 +62,40 @@ public class RW_ProjetileAim : MonoBehaviour
 
             }
 
-        }
+            // Move left/right using Left Arrow and Right Arrow keys
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                transform.Translate(Vector3.left * moveSpeed * Time.deltaTime, Space.World);
+            }
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                transform.Translate(Vector3.right * moveSpeed * Time.deltaTime, Space.World);
+            }
 
-        //Create a script to make the camera move
-        // with key press. make it move left, right and rotae left and right.
-        // with a birds eye view. Zoom in and xoom out
-        //Keep the camera horizontal
+            // Rotate camera left/right using A and D keys
+            if (Input.GetKey(KeyCode.A))
+            {
+                transform.Rotate(Vector3.up, -rotationSpeed * Time.deltaTime, Space.World);  // Rotate left
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime, Space.World);   // Rotate right
+            }
+
+            // Zoom in/out using mouse scroll
+            cam.orthographicSize = Mathf.Clamp(cam.orthographicSize - Input.GetAxis("Mouse ScrollWheel") * zoomSpeed, minZoom, maxZoom);
+
+        }
+        //using UnityEngine;
+
+
+    
     }
+
+
+    //Create a script to make the camera move
+    // with key press. make it move left, right and rotae left and right.
+    // with a birds eye view. Zoom in and xoom out
+    //Keep the camera horizontal
 }
+
