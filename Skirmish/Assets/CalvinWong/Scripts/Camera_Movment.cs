@@ -19,6 +19,8 @@ public class Camera_Movement : MonoBehaviour
         moveBackward();
         moveLeft();
         moveRight();
+        moveUp();
+        moveDown();
     }
 
     void moveLeft()
@@ -47,6 +49,21 @@ public class Camera_Movement : MonoBehaviour
         if(Input.GetKey(KeyCode.S))
         {
             transform.position -= transform.TransformDirection(Vector3.forward) * Time.deltaTime * movementSpeed;
+        }
+    }
+
+    void moveUp()
+    {
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            transform.position += transform.TransformDirection(Vector3.up) * Time.deltaTime * movementSpeed;
+        }
+    }
+    void moveDown()
+    {
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            transform.position += transform.TransformDirection(Vector3.down) * Time.deltaTime * movementSpeed;
         }
     }
 }
