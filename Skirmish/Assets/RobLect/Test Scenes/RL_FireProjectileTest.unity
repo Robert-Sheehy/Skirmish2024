@@ -469,11 +469,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d94ae751fd6708d419e717e63847d7b0, type: 3}
---- !u!1 &611455372 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d94ae751fd6708d419e717e63847d7b0, type: 3}
-  m_PrefabInstance: {fileID: 485369197}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &878467346
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,51 +575,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &917683988
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 917683990}
-  - component: {fileID: 917683989}
-  m_Layer: 0
-  m_Name: testProjectileChar
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &917683989
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 917683988}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81270440cd26cb74ca9d1cf863fb7f08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  theArcher: {fileID: 611455372}
---- !u!4 &917683990
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 917683988}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.2816465, y: 27.49563, z: -17.124838}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1448672618
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,6 +587,7 @@ GameObject:
   - component: {fileID: 1448672620}
   - component: {fileID: 1448672619}
   - component: {fileID: 1448672622}
+  - component: {fileID: 1448672623}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -730,6 +681,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78ccf48f4fd4e93489459cc01298c0c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1448672623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1448672618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81270440cd26cb74ca9d1cf863fb7f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -738,6 +701,5 @@ SceneRoots:
   - {fileID: 482633664}
   - {fileID: 878467350}
   - {fileID: 290362648}
-  - {fileID: 917683990}
   - {fileID: 485369197}
   - {fileID: 115165213}

@@ -10,7 +10,7 @@ public class RL_ProjectileAim : MonoBehaviour
     private float areaTargetMaxRange = 20;
     private float defaultScale =0.01f;
     float tinyLift = 0.01f;
-    public GameObject theArcher;
+    GameObject theSelectedGO;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +22,7 @@ public class RL_ProjectileAim : MonoBehaviour
         targetPlane.transform.localScale = defaultScale*Vector3.one;
         myRenderer = targetPlane.GetComponent<Renderer>();
         myRenderer.material.color = Color.red;
+        targetPlane.SetActive(false);
 
     }
 
@@ -40,7 +41,7 @@ public class RL_ProjectileAim : MonoBehaviour
 
             targetPlane.transform.localScale = info.distance * defaultScale * Vector3.one;
             
-            float distanceFromArcherToPoint = Vector3.Distance(theArcher.transform.position,  info.point);
+            float distanceFromArcherToPoint = Vector3.Distance(theSelectedGO.transform.position,  info.point);
             if (distanceFromArcherToPoint < singleTargetMaxRange)
                 myRenderer.material.color = Color.green;
             else
