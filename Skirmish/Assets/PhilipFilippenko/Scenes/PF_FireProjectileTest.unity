@@ -648,8 +648,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  shiftSpeedMultiplier: 2
-  rotationSpeed: 50
+  shiftSpeedMultiplier: 30
+  rotationSpeed: 20
   cameraTransform: {fileID: 0}
   lookAtTarget: {fileID: 0}
 --- !u!4 &1615146609 stripped
