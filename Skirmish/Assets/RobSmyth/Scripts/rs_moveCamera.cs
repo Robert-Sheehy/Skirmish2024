@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,77 +7,107 @@ public class rs_moveCamera : MonoBehaviour
 {
     float speed = 30f;
     float turningSpeed = 75f;
+    float minHeight = 5f;
+    float maxHeight = 50f;
+    float zoomStep = 2;
+    private float cameraSpeed = 3;
+
     void Start()
     {
-        transform.position = new Vector3(1, 2, 3);
+        transform.position = new Vector3(0, 20, 0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (shouldMoveIn()) moveIn();
-        if (shouldMoveOut()) moveOut();
-        if (shouldTurnLeft()) turnLeft();
-        if (shouldTurnRight()) turnRight();
+        if (shouldZoomIn()) zoomIn();
+        if (shouldZoomOut()) zoomOut();
+        
+
+        mouseRotate();
+
         if (shouldMoveForward()) moveForward();
         if (shouldMoveBack()) moveBack();
-
+        if (shouldMoveLeft()) moveLeft();
+        if (shouldMoveRight()) moveRight();
 
     }
 
-    private void turnLeft()
+    private void moveRight()
     {
-        transform.position += transform.TransformDirection(Vector3.left) * Time.deltaTime * turningSpeed;
+        transform.position += cameraSpeed * transform.right * Time.deltaTime;
     }
 
-    private void turnRight()
-    {
-        transform.position -= transform.TransformDirection(Vector3.left) * Time.deltaTime * turningSpeed;
-    }
-
-    private bool shouldTurnLeft()
-    {
-        return Input.GetKey(KeyCode.LeftArrow);
-    }
-
-    private bool shouldTurnRight()
+    private bool shouldMoveRight()
     {
         return Input.GetKey(KeyCode.RightArrow);
     }
 
-    private void moveIn()
+    private void moveLeft()
     {
-        //transform.position += transform.TransformDirection(Vector3.forward) * Time.deltaTime * turningSpeed;
-        transform.position += speed * transform.forward * Time.deltaTime;
+        transform.position -= cameraSpeed * transform.right * Time.deltaTime;
     }
 
-    private void moveOut()
+    private bool shouldMoveLeft()
     {
-        //transform.position -= transform.TransformDirection(Vector3.forward) * Time.deltaTime * turningSpeed;
-        transform.position -= speed * transform.forward * Time.deltaTime;
+        return Input.GetKey(KeyCode.LeftArrow);
     }
 
-    private bool shouldMoveIn()
+    private void mouseRotate()
     {
-
-        return Input.GetKey(KeyCode.Delete);
+        
+        if (Input.GetMouseButton(0))
+        {
+            Quaternion rotation = transform.rotation;
+            transform.Rotate(Vector3.up, Input.GetAxis("Horizontal"), Space.World);
+            transform.Rotate(Vector3.right, Input.GetAxis("Vertical"), Space.Self);
+            if (hasRotatedTooFar())
+                transform.rotation = rotation; 
+        }
     }
 
-    private bool shouldMoveOut()
+    private bool hasRotatedTooFar()
+    {
+        return !((Vector3.Dot(transform.forward, Vector3.down) >= 0) &&
+        (transform.up.y > 0));
+
+    }
+
+    private void zoomIn()
+    {
+        transform.position += zoomStep * transform.forward;
+        ClampHeight();
+    }
+
+    private void zoomOut()
+    {
+        transform.position -= zoomStep * transform.forward;
+        ClampHeight();
+    }
+
+    private bool shouldZoomIn()
     {
 
-        return Input.GetKey(KeyCode.Insert);
+        return (Input.mouseScrollDelta.y > 0);
+    }
+
+    private bool shouldZoomOut()
+    {
+
+        return (Input.mouseScrollDelta.y < 0);
     }
     private void moveForward()
     {
-        transform.position += transform.TransformDirection(Vector3.up) * Time.deltaTime * turningSpeed;
+        Vector3 dir = (new Vector3(transform.forward.x, 0, transform.forward.z)).normalized;
+        transform.position += cameraSpeed * dir * Time.deltaTime;
 
     }
 
     private void moveBack()
     {
-        transform.position += transform.TransformDirection(Vector3.down) * Time.deltaTime * turningSpeed;
-        
+        Vector3 dir = (new Vector3(transform.forward.x, 0, transform.forward.z)).normalized;
+        transform.position -= cameraSpeed * dir * Time.deltaTime;
+
     }
 
     private bool shouldMoveForward()
@@ -89,5 +120,11 @@ public class rs_moveCamera : MonoBehaviour
     {
 
         return Input.GetKey(KeyCode.DownArrow);
+    }
+    
+
+    private void ClampHeight()
+    {
+        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, minHeight, maxHeight), transform.position.z);
     }
 }
