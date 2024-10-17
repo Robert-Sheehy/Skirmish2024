@@ -18,7 +18,7 @@ public class ProjectileAim : MonoBehaviour
         targetPlane.GetComponent<Collider>().enabled = false;
         targetPlane.transform.position = Vector3.zero;
         targetPlane.transform.rotation = Quaternion.identity;
-        targetPlane.transform.localScale = 0.10f*Vector3.one;
+        targetPlane.transform.localScale = defaultScale*Vector3.one;
         Renderer myRenderer = targetPlane.GetComponent<Renderer>();
         myRenderer.material.color = Color.red;
     }
