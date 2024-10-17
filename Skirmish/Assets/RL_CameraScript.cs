@@ -23,7 +23,6 @@ public class RL_CameraScript : MonoBehaviour
         projectileGizmo.enabled = false;
         hasFocus = false ;
         focusTarget = new Vector3 (0, 0, 0);
-
         transform.position = new Vector3(0, 20, 20);  // starting Camera Position
         transform.LookAt(Vector3.zero);
     }
@@ -37,18 +36,18 @@ public class RL_CameraScript : MonoBehaviour
                 turnOffRangedGizmo();
                 if (shouldMoveIn()) zoomIn();
                 if (shouldMoveOut()) zoomOut();
-
-                mouseRotate();
-                if (Input.GetMouseButtonDown(1))
-                {
-                    setFocus();
-                }
                 if (shouldMoveForward()) moveForward();
                 if (shouldMoveBack()) moveBack();
                 if (shouldMoveLeft()) moveLeft();
                 if (shouldMoveRight()) moveRight();
+
+                if (shouldTrySelect())
+                {
+                    setFocus();
+                }
+                mouseRotate();
                 break;
-             case CameraStates.Ranged:
+            case CameraStates.Ranged:
 
                 break;
 
@@ -56,7 +55,12 @@ public class RL_CameraScript : MonoBehaviour
 
 
                 break;
+        }
     }
+
+    private static bool shouldTrySelect()
+    {
+        return Input.GetMouseButtonDown(1);
     }
 
     private void turnOffRangedGizmo()
@@ -66,10 +70,11 @@ public class RL_CameraScript : MonoBehaviour
 
     private void setFocus()
     {
-      hasFocus= true ;
+     
         RaycastHit info;
         if (Physics.Raycast(transform.position,transform.forward, out info))
-            {
+        {
+            RL_UnitMovementScript 
             focusTarget = info.point;
         }
 
@@ -143,15 +148,7 @@ public class RL_CameraScript : MonoBehaviour
         transform.position += cameraSpeed *dir * Time.deltaTime;
     }
 
-    private void turnRight()
-    {
-        throw new NotImplementedException();
-    }
 
-    private void turnLeft()
-    {
-        throw new NotImplementedException();
-    }
 
     private void zoomOut()
     {
@@ -172,15 +169,6 @@ public class RL_CameraScript : MonoBehaviour
         return Input.GetKey(KeyCode.W);
     }
 
-    private bool shouldTurnRight()
-    {
-        throw new NotImplementedException();
-    }
-
-    private bool shouldTurnLeft()
-    {
-        throw new NotImplementedException();
-    }
 
     private bool shouldMoveOut()
     {

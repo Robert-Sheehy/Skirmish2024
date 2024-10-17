@@ -7,7 +7,7 @@ using UnityEngine;
 public class CW_Camera_Movement : MonoBehaviour
 {
     enum CameraStates { Default, Ranged, Melee}
-    CameraStates state = defaultState;
+   CameraStates state = CameraStates.Default;
 
     float minHeight = 5f;
     float maxHeight = 50f;
@@ -15,10 +15,12 @@ public class CW_Camera_Movement : MonoBehaviour
     private float cameraSpeed = 20;
     bool hasFocus;
     Vector3 focusTarget;
+
+    RL_ProjectileAim projectileGizmo;
     // Start is called before the first frame update
     void Start()
     {
-        projectileGizmo = GetComponent<ProjectileAim>();
+        projectileGizmo = GetComponent<RL_ProjectileAim>();
         projectileGizmo.enabled = false;
         hasFocus = false;
         focusTarget = new Vector3(0,10,0);
