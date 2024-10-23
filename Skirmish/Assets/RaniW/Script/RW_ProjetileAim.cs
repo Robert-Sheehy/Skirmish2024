@@ -45,8 +45,8 @@ public class RW_ProjetileAim : MonoBehaviour
 
         //print(Input.mouseScrollDelta.y);
         //print(Input.mouseScrollDelta.x);
-        if (shouldMoveIn()) moveIn();
-        if (shouldMoveOut()) moveOut();
+       // if (shouldMoveIn()) moveIn();
+       // if (shouldMoveOut()) moveOut();
 
         if (Physics.Raycast(ray, out info))
         {
@@ -108,7 +108,7 @@ public class RW_ProjetileAim : MonoBehaviour
 
     
     }
-
+    /*
     private void moveOut()
     {
         transform.position -= transform.forward;
@@ -129,7 +129,7 @@ public class RW_ProjetileAim : MonoBehaviour
     private bool shouldMoveIn()
     {
         throw new NotImplementedException();
-    }
+    }*/
 
 
     //Create a script to make the camera move

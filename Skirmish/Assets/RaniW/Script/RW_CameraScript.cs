@@ -1,11 +1,10 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RL_CameraScript : MonoBehaviour
+public class RW_CameraScript : MonoBehaviour
 {
-    enum CameraStates { Default,Ranged, Melee}
+    enum CameraStates { Default, Ranged, Melee }
     CameraStates state = CameraStates.Default;
     float minHeight = 5f;
     float maxHeight = 50f;
@@ -14,15 +13,15 @@ public class RL_CameraScript : MonoBehaviour
     bool hasFocus;
     Vector3 focusTarget;
 
-    RL_ProjectileAim projectileGizmo;
+    RW_ProjetileAim projectileGizmo;
 
     // Start is called before the first frame update
     void Start()
     {
-        projectileGizmo = GetComponent<RL_ProjectileAim>();
+        projectileGizmo = GetComponent<RW_ProjetileAim>();
         projectileGizmo.enabled = false;
-        hasFocus = false ;
-        focusTarget = new Vector3 (0, 0, 0);
+        hasFocus = false;
+        focusTarget = new Vector3(0, 0, 0);
         transform.position = new Vector3(0, 20, 20);  // starting Camera Position
         transform.LookAt(Vector3.zero);
     }
@@ -65,16 +64,16 @@ public class RL_CameraScript : MonoBehaviour
 
     private void turnOffRangedGizmo()
     {
-        
+
     }
 
     private void setFocus()
     {
-     
+
         RaycastHit info;
-        if (Physics.Raycast(transform.position,transform.forward, out info))
+        if (Physics.Raycast(transform.position, transform.forward, out info))
         {
-            //RL_UnitMovementScript 
+           // RW_Movement
             //focusTarget = info.point;
         }
 
@@ -97,11 +96,11 @@ public class RL_CameraScript : MonoBehaviour
 
     private bool shouldMoveLeft()
     {
-       return  Input.GetKey(KeyCode.A);
+        return Input.GetKey(KeyCode.A);
     }
 
     private void mouseRotate()
-    {  
+    {
         if (Input.GetMouseButton(0))
         {
             Quaternion rotation = transform.rotation;
@@ -127,7 +126,7 @@ public class RL_CameraScript : MonoBehaviour
     {
         return !((Vector3.Dot(transform.forward, Vector3.down) >= 0) &&
            (transform.up.y >= 0));
-        
+
     }
 
     private void moveBack()
@@ -145,7 +144,7 @@ public class RL_CameraScript : MonoBehaviour
     private void moveForward()
     {
         Vector3 dir = (new Vector3(transform.forward.x, 0, transform.forward.z)).normalized;
-        transform.position += cameraSpeed *dir * Time.deltaTime;
+        transform.position += cameraSpeed * dir * Time.deltaTime;
     }
 
 
