@@ -1,10 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class RL_CameraScript : MonoBehaviour
 {
+    RL_GameManagerScript theManager;
+
     enum CameraStates { Default,Ranged, Melee}
     CameraStates state = CameraStates.Default;
     float minHeight = 5f;
@@ -14,13 +17,17 @@ public class RL_CameraScript : MonoBehaviour
     bool hasFocus;
     Vector3 focusTarget;
 
+    RL_UnitMovementScript selectedUnit;
+
     RL_ProjectileAim projectileGizmo;
 
     // Start is called before the first frame update
     void Start()
     {
+        theManager = FindObjectOfType<RL_GameManagerScript>();
+
         projectileGizmo = GetComponent<RL_ProjectileAim>();
-        projectileGizmo.enabled = false;
+      
         hasFocus = false ;
         focusTarget = new Vector3 (0, 0, 0);
         transform.position = new Vector3(0, 20, 20);  // starting Camera Position
@@ -30,24 +37,28 @@ public class RL_CameraScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (shouldMoveIn()) zoomIn();
+        if (shouldMoveOut()) zoomOut();
+        if (shouldMoveForward()) moveForward();
+        if (shouldMoveBack()) moveBack();
+        if (shouldMoveLeft()) moveLeft();
+        if (shouldMoveRight()) moveRight();
+
+        if (shouldTrySelect())
+        {
+            setFocus();
+        }
+        mouseRotate();
+
         switch (state)
         {
             case CameraStates.Default:
                 turnOffRangedGizmo();
-                if (shouldMoveIn()) zoomIn();
-                if (shouldMoveOut()) zoomOut();
-                if (shouldMoveForward()) moveForward();
-                if (shouldMoveBack()) moveBack();
-                if (shouldMoveLeft()) moveLeft();
-                if (shouldMoveRight()) moveRight();
 
-                if (shouldTrySelect())
-                {
-                    setFocus();
-                }
-                mouseRotate();
                 break;
             case CameraStates.Ranged:
+               
 
                 break;
 
@@ -58,6 +69,7 @@ public class RL_CameraScript : MonoBehaviour
         }
     }
 
+
     private static bool shouldTrySelect()
     {
         return Input.GetMouseButtonDown(1);
@@ -65,19 +77,80 @@ public class RL_CameraScript : MonoBehaviour
 
     private void turnOffRangedGizmo()
     {
-        
+        projectileGizmo.Disable();
+    }
+
+
+    private void turnOnRangedGizmo(RL_UnitMovementScript selectedUnit)
+    {
+       
+        projectileGizmo.setProjectileSource(selectedUnit);
     }
 
     private void setFocus()
     {
-     
+       
         RaycastHit info;
-        if (Physics.Raycast(transform.position,transform.forward, out info))
+        Ray mousePoint = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        Debug.DrawRay(mousePoint.origin, 200 * mousePoint.direction, Color.blue, 5);
+
+        if (Physics.Raycast(mousePoint, out info))
         {
-            RL_UnitMovementScript 
-            focusTarget = info.point;
+            print("Hit Something" + info.transform.name);
+            RL_UnitMovementScript possibleUnit = info.transform.GetComponent<RL_UnitMovementScript>();
+            if (possibleUnit != null)
+            {
+                if (selectedUnit == null)
+                {
+                    selectedUnit = possibleUnit;
+                    state = CameraStates.Ranged;
+                    turnOnRangedGizmo(selectedUnit);
+                    Highlight(selectedUnit);
+
+                }
+                else
+                {
+                    DeSelectUnit(selectedUnit);  // removes text 
+                    if (possibleUnit == selectedUnit)
+                    {
+                        selectedUnit = null;
+                        state = CameraStates.Default;
+                        turnOffRangedGizmo();
+
+                    }
+                    else
+                    {
+                        selectedUnit = possibleUnit;
+                        turnOnRangedGizmo(selectedUnit);
+                        Highlight(selectedUnit);
+                        state = CameraStates.Ranged;
+
+                    }
+
+
+                }
+            }
+           
         }
 
+    }
+
+    private void DeSelectUnit(RL_UnitMovementScript selectedUnit)
+    {
+        RL_TestInstanceScript myText = selectedUnit.GetComponentInChildren<RL_TestInstanceScript>();
+        Destroy(myText.gameObject);
+    }
+
+    private void Highlight(RL_UnitMovementScript selectedUnit)
+    {
+        RL_TestInstanceScript myText = theManager.GetText();
+        myText.initialize("Select");
+       
+        myText.SetColor(Color.red);
+        myText.SetPosition(new Vector2(1, 1));
+        myText.AttachTo(selectedUnit.transform);
+      
     }
 
     private void moveRight()
