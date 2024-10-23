@@ -14,12 +14,12 @@ public class RL_CameraScript : MonoBehaviour
     bool hasFocus;
     Vector3 focusTarget;
 
-    RL_ProjectileAim projectileGizmo;
+    ProjectileAim projectileGizmo;
 
     // Start is called before the first frame update
     void Start()
     {
-        projectileGizmo = GetComponent<RL_ProjectileAim>();
+        projectileGizmo = GetComponent<ProjectileAim>();
         projectileGizmo.enabled = false;
         hasFocus = false ;
         focusTarget = new Vector3 (0, 0, 0);
