@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RL_ProjectileAim : MonoBehaviour
+public class ProjectileAim : MonoBehaviour
 {
     enum ProjectileGizmoState { Disabled, Enabled}
     ProjectileGizmoState state = ProjectileGizmoState.Disabled;
