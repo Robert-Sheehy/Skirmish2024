@@ -39,8 +39,8 @@ public class PF_CamMovement : MonoBehaviour
 
     private void HandleMovement()
     {
-        float horizontal = Input.GetAxis("Horizontal"); // A и D
-        float vertical = Input.GetAxis("Vertical");     // W и S
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
 
         float currentMoveSpeed = moveSpeed;
 
