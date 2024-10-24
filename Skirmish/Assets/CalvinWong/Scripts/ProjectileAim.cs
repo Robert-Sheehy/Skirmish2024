@@ -1,12 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ProjectileAim : MonoBehaviour
 {
-    enum ProjectileGizmo
-
     GameObject targetPlane;
     Renderer myRenderer;
     private float singleTargetMaxRange = 10;
@@ -29,20 +26,6 @@ public class ProjectileAim : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (state) { 
-        
-            case ProjectileState.Enabled:
-                {
-                    break;
-                }
-
-            case ProjectileState.Disabled: 
-                { 
-                    break; 
-                }
-        
-        }
-
         //Camera direction on mouse movement
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Debug.DrawRay(ray.origin, ray.direction*50);
@@ -51,7 +34,7 @@ public class ProjectileAim : MonoBehaviour
         if (Physics.Raycast(ray, out info))
         {
             print("Hit" + info.transform.gameObject.name);
-            targetPlane.transform.position = info.point + (tinyLift * info.normal);
+            targetPlane.transform.position = info.point + tinyLift * info.normal;
 
             targetPlane.transform.localScale = info.distance * defaultScale * Vector3.one;
             targetPlane.transform.up = info.normal;
@@ -76,10 +59,5 @@ public class ProjectileAim : MonoBehaviour
         }
         //make the camera move with key press(rotate left & right, move forward & backward)
 
-    }
-
-    internal CW_TextInstance GetText()
-    {
-        throw new NotImplementedException();
     }
 }

@@ -17,12 +17,17 @@ public class RL_CameraScript : MonoBehaviour
     bool hasFocus;
     Vector3 focusTarget;
 
+    RL_UnitMovementScript selectedUnit;
 
+    RL_ProjectileAim projectileGizmo;
 
     // Start is called before the first frame update
     void Start()
     {
+        theManager = FindObjectOfType<RL_GameManagerScript>();
 
+        projectileGizmo = GetComponent<RL_ProjectileAim>();
+      
         hasFocus = false ;
         focusTarget = new Vector3 (0, 0, 0);
         transform.position = new Vector3(0, 20, 20);  // starting Camera Position
