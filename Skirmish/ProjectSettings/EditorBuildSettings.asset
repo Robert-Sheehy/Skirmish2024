@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/DylanBarry/Scenes/DB_ButtonScene.unity
+    guid: 8c25eedc63c10e14582bc269241b6992
+  - enabled: 1
+    path: Assets/DylanBarry/Scenes/DB_CharacterImportScene.unity
+    guid: 902b1a65631c2204caa5c48487067a82
   m_configObjects: {}
