@@ -4,3 +4,8 @@
 18/09/2024 Synced fork with RobLect repo. Cloned to computer lab PC. Corrected folder structure and moved my movement 
 	   script and ball with particles to my own folder!
 	   NOTE: Removed ball with particles from RobLect scene to my own!
+
+01/11/2024 Synced fork. Cloned to personal computer and checked versions.
+	   Created a new scene called Main Menu. This consists of 3 buttons and a background canvas. Each button serves functionality of
+	   Play game, Options menu, and Quit game.
+	   A script was created for these buttons and to give them functionality.
