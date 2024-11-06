@@ -19,10 +19,12 @@ public class RW_Movement : MonoBehaviour
         
             if (shouldMoveForward()) moveForward();
             if (shouldTurnLeft()) turnLeft();
+            if (shouldMoveBackward()) moveBackward();
+            if (shouldTurnRight()) turnRight();
 
 
 
-        
+
 
 
 
@@ -40,6 +42,16 @@ public class RW_Movement : MonoBehaviour
         return Input.GetKey(KeyCode.A);
     }
 
+    private void turnRight()
+    {
+        transform.Rotate(new Vector3(0, 1, 0), turningSpeed * Time.deltaTime);
+    }
+
+    private bool shouldTurnRight()
+    {
+        return Input.GetKey(KeyCode.S);
+    }
+
     private void moveForward()
     {
         transform.position += speed * transform.forward * Time.deltaTime;
@@ -51,6 +63,19 @@ public class RW_Movement : MonoBehaviour
         //else return false;
 
         return Input.GetKey(KeyCode.W);
+    }
+
+    private void moveBackward()
+    {
+        transform.position += speed * transform.forward * Time.deltaTime;
+    }
+
+    private bool shouldMoveBackward()
+    {
+        //if (Input.GetKey(KeyCode.W)) return true;
+        //else return false;
+
+        return Input.GetKey(KeyCode.D);
     }
 
 }
