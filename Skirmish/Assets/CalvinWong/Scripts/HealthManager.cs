@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,43 +8,54 @@ public class HealthManager : MonoBehaviour
 {
 
     public Image HealthBar;
-    public float healthAmount = 100f;
+    public float health = 100f;
+    public float maxHealth;
+    public Slider slider;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        maxHealth = health;
+        slider.value = calculateHealth();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(healthAmount <= 0)
+        slider.value = calculateHealth();
+
+        if(health < maxHealth)
         {
-            Application.LoadLevel(Application.loadedLevel);
+            //Application.LoadLevel(Application.loadedLevel);
+            HealthBar.color = Color.yellow;
         }
 
-        if(Input.GetKeyDown(KeyCode.Return))
+        if(health <= 0)
         {
-            TakeDamage(20);
+            Destroy(gameObject);
         }
-        if(Input.GetKeyDown(KeyCode.Space)) 
+        if(health > maxHealth)
         {
-            Heal(5);
+            health = maxHealth;
         }
     }
 
+    float calculateHealth()
+    {
+        return health / maxHealth;
+    }    
+
     public void TakeDamage(float damage)
     {
-        healthAmount -= damage;
-        HealthBar.fillAmount = healthAmount / 100f;
+        health -= damage;
+        HealthBar.fillAmount = health / 100f;
     }
 
     public void Heal(float healingAmount)
     {
-        healthAmount += healingAmount;
-        healthAmount = Mathf.Clamp(healthAmount, 0, 100);
+        health += healingAmount;
+        health = Mathf.Clamp(health, 0, 100);
 
-        HealthBar.fillAmount = healthAmount / 100f;
+        HealthBar.fillAmount = health / 100f;
     }
 }
