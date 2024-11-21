@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RS_ProjectileAim : MonoBehaviour
 {
+    enum ProjectileGizmoState { Disabled, Enabled }
+    ProjectileGizmoState state = ProjectileGizmoState.Disabled;
 
     GameObject targetPlane;
     Renderer myRenderer;
@@ -14,8 +17,18 @@ public class RS_ProjectileAim : MonoBehaviour
     public GameObject theArcher;
 
 
+    internal void setProjectileSource(RS_UnitMovementScript selectedUnit)
+    {
+        targetPlane.SetActive(true);
+        theArcher = selectedUnit.gameObject;
+        state = ProjectileGizmoState.Enabled;
+    }
 
-
+    internal void Disable()
+    {
+        targetPlane.SetActive(false);
+        state = ProjectileGizmoState.Disabled;
+    }
     // Start is called before the first frame update
     void Start()
     {

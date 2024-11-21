@@ -1,20 +1,36 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class rs_moveCamera : MonoBehaviour
 {
-    float speed = 30f;
-    float turningSpeed = 75f;
+    RS_GameManagerScript theManager;
+
+    enum CameraStates { Default, Ranged, Melee }
+    CameraStates state = CameraStates.Default;
     float minHeight = 5f;
     float maxHeight = 50f;
     float zoomStep = 2;
-    private float cameraSpeed = 3;
+    private float cameraSpeed = 20;
+    bool hasFocus;
+    Vector3 focusTarget;
+
+    RS_UnitMovementScript selectedUnit;
+
+    RS_ProjectileAim projectileGizmo;
 
     void Start()
     {
-        transform.position = new Vector3(0, 20, 0);
+        theManager = FindObjectOfType<RS_GameManagerScript>();
+
+        projectileGizmo = GetComponent<RS_ProjectileAim>();
+
+        hasFocus = false;
+        focusTarget = new Vector3(0, 0, 0);
+        transform.position = new Vector3(0, 20, 20);  // starting Position
+        transform.LookAt(Vector3.zero);
     }
 
     // Update is called once per frame
@@ -22,16 +38,123 @@ public class rs_moveCamera : MonoBehaviour
     {
         if (shouldZoomIn()) zoomIn();
         if (shouldZoomOut()) zoomOut();
-        
-
-        mouseRotate();
-
         if (shouldMoveForward()) moveForward();
         if (shouldMoveBack()) moveBack();
         if (shouldMoveLeft()) moveLeft();
         if (shouldMoveRight()) moveRight();
 
+        if (shouldTrySelect())
+        {
+            setFocus();
+        }
+        mouseRotate();
+
+        switch (state)
+        {
+            case CameraStates.Default:
+                turnOffRangedGizmo();
+
+                break;
+            case CameraStates.Ranged:
+
+
+                break;
+
+            case CameraStates.Melee:
+
+
+                break;
+        }
     }
+
+    private static bool shouldTrySelect()
+    {
+        return Input.GetMouseButtonDown(1);
+    }
+
+    private void turnOffRangedGizmo()
+    {
+        projectileGizmo.Disable();
+    }
+    private void turnOnRangedGizmo(RS_UnitMovementScript selectedUnit)
+    {
+        projectileGizmo.setProjectileSource(selectedUnit);
+    }
+
+
+    private void setFocus()
+    {
+
+        RaycastHit info;
+        Ray mousePoint = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        Debug.DrawRay(mousePoint.origin, 200 * mousePoint.direction, Color.blue, 5);
+
+        if (Physics.Raycast(mousePoint, out info))
+        {
+
+            print("Hit Something" + info.transform.name);
+            RS_UnitMovementScript possibleUnit = info.transform.GetComponent<RS_UnitMovementScript>();
+            if (possibleUnit != null)
+            {
+                if (selectedUnit == null)
+                {
+                    selectedUnit = possibleUnit;
+                    state = CameraStates.Ranged;
+                    turnOnRangedGizmo(selectedUnit);
+                    Highlight(selectedUnit, GetTheManager());
+
+                }
+                else
+                {
+                    DeSelectUnit(selectedUnit);  // removes text 
+                    if (possibleUnit == selectedUnit)
+                    {
+                        selectedUnit = null;
+                        state = CameraStates.Default;
+                        turnOffRangedGizmo();
+
+                    }
+                    else
+                    {
+                        selectedUnit = possibleUnit;
+                        turnOnRangedGizmo(selectedUnit);
+                        Highlight(selectedUnit, GetTheManager());
+                        state = CameraStates.Ranged;
+
+                    }
+
+
+                }
+            }
+
+
+        }
+
+    }
+    private void DeSelectUnit(RS_UnitMovementScript selectedUnit)
+    {
+        rs_TestInstanceScript myText = selectedUnit.GetComponentInChildren<rs_TestInstanceScript>();
+        Destroy(myText.gameObject);
+    }
+
+    private RS_GameManagerScript GetTheManager()
+    {
+        return theManager;
+    }
+
+    private void Highlight(RS_UnitMovementScript selectedUnit, RS_GameManagerScript theManager)
+    {
+        rs_TestInstanceScript myText = theManager.GetText();
+        myText.initialize("Select");
+
+        myText.SetColor(Color.red);
+        myText.SetPosition(new Vector2(1, 1));
+        myText.AttachTo(selectedUnit.transform);
+
+    }
+
+
 
     private void moveRight()
     {
@@ -40,7 +163,7 @@ public class rs_moveCamera : MonoBehaviour
 
     private bool shouldMoveRight()
     {
-        return Input.GetKey(KeyCode.RightArrow);
+        return Input.GetKey(KeyCode.D);
     }
 
     private void moveLeft()
@@ -50,7 +173,7 @@ public class rs_moveCamera : MonoBehaviour
 
     private bool shouldMoveLeft()
     {
-        return Input.GetKey(KeyCode.LeftArrow);
+        return Input.GetKey(KeyCode.A);
     }
 
     private void mouseRotate()
@@ -59,10 +182,21 @@ public class rs_moveCamera : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             Quaternion rotation = transform.rotation;
-            transform.Rotate(Vector3.up, Input.GetAxis("Horizontal"), Space.World);
-            transform.Rotate(Vector3.right, Input.GetAxis("Vertical"), Space.Self);
+
+            if (hasFocus)
+            {
+                transform.RotateAround(focusTarget, Vector3.up, Input.GetAxis("Horizontal"));
+                transform.RotateAround(focusTarget, transform.right, Input.GetAxis("Vertical"));
+                transform.LookAt(focusTarget);
+                ClampHeight();
+            }
+            else
+            {
+                transform.Rotate(Vector3.up, Input.GetAxis("Horizontal"), Space.World);
+                transform.Rotate(Vector3.right, Input.GetAxis("Vertical"), Space.Self);
+            }
             if (hasRotatedTooFar())
-                transform.rotation = rotation; 
+                transform.rotation = rotation;
         }
     }
 
@@ -102,7 +236,6 @@ public class rs_moveCamera : MonoBehaviour
         transform.position += cameraSpeed * dir * Time.deltaTime;
 
     }
-
     private void moveBack()
     {
         Vector3 dir = (new Vector3(transform.forward.x, 0, transform.forward.z)).normalized;
@@ -110,17 +243,19 @@ public class rs_moveCamera : MonoBehaviour
 
     }
 
+    private bool shouldMoveBack()
+    {
+        return Input.GetKey(KeyCode.S);
+    }
+
+
     private bool shouldMoveForward()
     {
 
-        return Input.GetKey(KeyCode.UpArrow);
+        return Input.GetKey(KeyCode.W);
     }
 
-    private bool shouldMoveBack()
-    {
-
-        return Input.GetKey(KeyCode.DownArrow);
-    }
+    
     
 
     private void ClampHeight()

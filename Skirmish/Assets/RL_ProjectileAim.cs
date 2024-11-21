@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RL_ProjectileAim : MonoBehaviour
+public class rs_ProjectileAim : MonoBehaviour
 {
     enum ProjectileGizmoState { Disabled, Enabled}
     ProjectileGizmoState state = ProjectileGizmoState.Disabled;
@@ -88,5 +88,10 @@ public class RL_ProjectileAim : MonoBehaviour
                 break;
         }
  
+    }
+
+    internal void setProjectileSource(RS_UnitMovementScript selectedUnit)
+    {
+        throw new NotImplementedException();
     }
 }
