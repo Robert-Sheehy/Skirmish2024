@@ -19,14 +19,14 @@ public class RL_CameraScript : MonoBehaviour
 
     RL_UnitMovementScript selectedUnit;
 
-    RL_ProjectileAim projectileGizmo;
+    rs_ProjectileAim projectileGizmo;
 
     // Start is called before the first frame update
     void Start()
     {
         theManager = FindObjectOfType<RL_GameManagerScript>();
 
-        projectileGizmo = GetComponent<RL_ProjectileAim>();
+        projectileGizmo = GetComponent<rs_ProjectileAim>();
       
         hasFocus = false ;
         focusTarget = new Vector3 (0, 0, 0);
