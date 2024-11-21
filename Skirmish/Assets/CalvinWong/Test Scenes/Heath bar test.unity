@@ -227,7 +227,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthBar: {fileID: 130732475}
-  healthAmount: 100
+  health: 100
+  maxHealth: 0
+  slider: {fileID: 0}
 --- !u!4 &423599339
 Transform:
   m_ObjectHideFlags: 0
