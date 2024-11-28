@@ -8,7 +8,7 @@ public class RL_UnitMovementScript : MonoBehaviour
 {   enum ArcherState { Firing, Moving, Idle, Melee }
     ArcherState state = ArcherState.Idle;
     float speed = 3f;
-    float turningSpeed = 45f;
+   // float turningSpeed = 45f;
     private Vector3 destination;
 
     // Start is called before the first frame update
