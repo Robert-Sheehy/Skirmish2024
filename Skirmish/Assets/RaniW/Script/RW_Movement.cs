@@ -22,19 +22,12 @@ public class RW_Movement : MonoBehaviour
             if (shouldMoveBackward()) moveBackward();
             if (shouldTurnRight()) turnRight();
 
-
-
-
-
-
-
-
     }
 
 
     private void turnLeft()
     {
-        transform.Rotate(new Vector3(0, 1, 0), turningSpeed * Time.deltaTime);
+        transform.Rotate(new Vector3(0, 1, 0), -turningSpeed * Time.deltaTime);
     }
 
     private bool shouldTurnLeft()
