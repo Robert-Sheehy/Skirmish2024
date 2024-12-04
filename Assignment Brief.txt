@@ -1,0 +1,61 @@
+Create an Inventory Class
+    Constructor  ???
+    list<Items>
+    void Add(Item newItem)
+    Item  GetItem(int index)
+    void ListAllItems()
+    float getTotalWeight()
+
+Create an Item Class
+  string name;
+  string description;
+  float  weight;
+
+Create multiple Inherited "Items"
+Eg..
+
+Create Sword : Item Class
+  Constructor (string name, string description, float weight, float attackPower, float dexterity)
+  extra fields ?
+  Unique method  e.g
+    void attack() { Debug.Log("You swing your sword"); }
+
+
+TestDriverClass:monobehaviour
+
+  Inventory items;
+
+  Start()
+{  items = new Inventory();
+    Sword rapier = new Sword("Beast Slayer Rapier", "Heavily bejeweled Rapier with images on animals on shaft"
+                    0.5f,50f,20f);
+    etc...
+    items.Add(rapier);
+
+    etc..
+
+}
+
+Update()
+{
+if (Input.GetKeyDown(Keycode.I)) items.ListAllItems();
+
+if (Input.GetKeyDown(Keycode.W)) items.GetTotalWeight();
+
+if (Input.GetKeyDown(Keycode.U))
+{  Item nextItem = items.Get(0);
+    print("You got <name>  from inventory")
+    print(Description)
+    if (nextItem == Sword)
+            (nextItem as Sword).attack();
+
+
+}
+
+
+
+    
+  
+
+
+
