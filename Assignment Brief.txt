@@ -1,3 +1,23 @@
+Final Assignment
+
+Within your folder create another folder called Final Assignment, add appropriate subfolders scripts, models etc.
+
+Create a scene, name it (Initials)_Final ie RL_Final
+
+Bring any 2 characters into the scene. (Model only no scripts)
+
+Create an abstract RL_CharacterAbstract
+
+Create 2 scripts which implement this RL_PlayerA and RL_PlayerB differently. (differing key presses)
+
+
+Create an interface I_RLHealth and implement and use on both scripts above.
+
+
+
+
+
+
 Create an Inventory Class
     Constructor  ???
     list<Items>
