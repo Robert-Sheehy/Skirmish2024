@@ -30,14 +30,12 @@ public class CW_Inventory
         return totalWeight;
     }
 
-    internal void getItems(int i)
+    internal CW_Item getItems(int index)
     {
-        listOfInventory[i] = null;
-        CW_Item item = listOfInventory[i];
-        if (item != null)
-        {
-            listOfInventory[i] = item;
-        }
+        CW_Item item = listOfInventory[index];
+        listOfInventory.Remove(item);
+
+        return item;
 
     }
 }
