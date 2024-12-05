@@ -14,12 +14,27 @@ public class RW_TestDriver : MonoBehaviour
     void Start()
     {
         RW_Inventory items = new RW_Inventory();
-        RW_Sword rapier = new RW_Sword("Beast Slayer Rapier", "Heavily bejeweled Rapier with images on animals on shaft",
+        RW_Sword rapier = new RW_Sword("Beast Slayer Rapier", "Heavily bejeweled Rapier with images of animals on shaft",
                         0.5f, 50f, 20f);
-        //etc...
+        
         items.Add(rapier);
 
-       // etc..
+
+        RW_Sheild sheild = new RW_Sheild("Shelter Sheild", "Heavily bejeweled Sheild with images of animals on sheild",
+                        0.5f, 50f, 20f);
+        
+        items.Add(sheild);
+
+        RW_Helment helment = new RW_Helment("Skull Helment", "Heavily bejeweled Helment with red feathers at the top",
+                        0.5f, 50f, 20f);
+        
+        items.Add(helment);
+
+        RW_Banana banana = new RW_Banana("Funny Banana", "Shiny banana that moves like a boomarang",
+                        0.5f, 50f, 20f);
+
+        items.Add(banana);
+
     }
 
     // Update is called once per frame
@@ -31,11 +46,28 @@ public class RW_TestDriver : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.U))
         {
-            /*Item nextItem = items.Get(0);
-            print("You got <name>  from inventory");
-            print(Description);
-            if (nextItem == RW_Sword) 
-                (nextItem as RW_Sword).attack();*/
+            RW_Item nextItem = items.Get(0);
+            
+
+            print("You got" + nextItem.name + " from inventory");
+            print(nextItem.description);
+
+            if (nextItem is RW_Sword)
+              
+            (nextItem as RW_Sword).Attack();
+
+            if (nextItem is RW_Sheild)
+
+            (nextItem as RW_Sheild).Block();
+
+            if (nextItem is RW_Helment)
+
+            (nextItem as RW_Helment).Protect();
+
+            if (nextItem is RW_Banana)
+
+            (nextItem as RW_Banana).Freeze();
+
         }
     }
 }
