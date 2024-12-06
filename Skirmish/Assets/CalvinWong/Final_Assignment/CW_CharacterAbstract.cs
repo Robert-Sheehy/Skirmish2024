@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class CW_CharacterAbstract : MonoBehaviour, I_CWHealth
 {
-    float turningSpeed = 10f;
+    float turningSpeed = 50f;
     float movementSpeed = 10f;
     float health = 100f;
 
