@@ -7,9 +7,13 @@ public class RS_BackPack : RS_Item
 {
     float slots = 20;
     float hiddenSpace = 5;
-    public RS_BackPack(string newItemName, string itemDescription, float itemWeight, float slots, float hiddenSpace)
+    public RS_BackPack(string newItemName, string newItemDescription, float newItemWeight, float NewSlots, float NewHiddenSpace)
     {
         itemName = newItemName;
+        itemDescription = newItemDescription;
+        itemWeight = newItemWeight;
+        slots = NewSlots;
+        hiddenSpace = NewHiddenSpace;
        
     }
     void wear()
