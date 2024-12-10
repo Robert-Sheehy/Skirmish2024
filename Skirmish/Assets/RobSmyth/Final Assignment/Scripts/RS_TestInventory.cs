@@ -25,21 +25,23 @@ public class RS_TestInventory : MonoBehaviour
             inventory.listAllItems();
         }
 
-        if (Input.GetKey(KeyCode.K))
+        if (Input.GetKey(KeyCode.W))
         {
             inventory.getTotalItemWeights();
         }
-        if (Input.GetKeyUp(KeyCode.L))
+        if (Input.GetKeyUp(KeyCode.U))
         {
             RS_Item nextItem = inventory.getItems(0);
-            Debug.Log("You got" +nextItem.itemName + " from your inventory!");
-            Debug.Log(nextItem.itemDescription);
+            print("You got" +nextItem.itemName + " from your inventory!");
+            print(nextItem.itemDescription);
 
 
             if(nextItem is RS_Dagger)
                 (nextItem as RS_Dagger).attack();
             if(nextItem is RS_BackPack)
                 (nextItem as RS_BackPack).wearBackPack();
+            if (nextItem is RS_Helmet)
+                (nextItem as RS_Helmet).wearHelmet();
 
         }
     }

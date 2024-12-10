@@ -8,16 +8,12 @@ public abstract class RS_CharacterAbstract : MonoBehaviour, I_RSHealth
     int currentHealth = 100;
     private float playerSpeed = 10;
 
-    // Start is called before the first frame update
     void Start()
     {
         
         
     }
 
-    
-
-    // Update is called once per frame
     internal void Update()
     {
         if (shouldMoveForward())
@@ -54,12 +50,13 @@ public abstract class RS_CharacterAbstract : MonoBehaviour, I_RSHealth
     }
     private void moveLeft()
     {
-        transform.position -= playerSpeed * transform.right * Time.deltaTime;
+        transform.Rotate(new Vector3(0, 1, 0), - playerSpeed * Time.deltaTime);
     }
     private void moveRight()
     {
-        transform.position += playerSpeed * transform.right * Time.deltaTime;
+        transform.Rotate(new Vector3(0, 1, 0), playerSpeed * Time.deltaTime);
     }
+    
 
     internal abstract bool shouldMoveForward();
     internal abstract bool shouldMoveBackwards();
@@ -69,8 +66,9 @@ public abstract class RS_CharacterAbstract : MonoBehaviour, I_RSHealth
 
     public void takeDamage(int damage)
     {
-        print("That Hurt");
+        print("Ouch! That Hurt");
         if (currentHealth <= 0)
+            print("You beat the Scarab lord this time!");
             Destroy(gameObject);
     }
 
