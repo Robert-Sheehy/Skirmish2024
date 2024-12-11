@@ -1,12 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PF_Item
 {
-    public string Name;
-    public string Description;
-    public float Weight;
+    internal string Name;
+    internal string Description;
+    internal float Weight;
+
+    public PF_Item() { }
 
     public PF_Item(string name, string description, float weight)
     {
@@ -15,4 +15,3 @@ public class PF_Item
         Weight = weight;
     }
 }
-

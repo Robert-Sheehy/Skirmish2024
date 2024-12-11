@@ -16,4 +16,9 @@ public class PF_Sword : PF_Item
     {
         Debug.Log("You swing your sword!");
     }
+
+    internal void EquipSword()
+    {
+        Debug.Log("Equipping sword...");
+    }
 }
