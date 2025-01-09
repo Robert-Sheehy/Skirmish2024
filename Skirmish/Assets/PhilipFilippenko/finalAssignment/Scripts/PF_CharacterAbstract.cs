@@ -74,14 +74,14 @@ public abstract class PF_CharacterAbstract : MonoBehaviour, IHealth
 
     private void moveBackward()
     {
-        transform.position -= transform.forward * Time.deltaTime;
+        transform.position -= transform.forward * speed * Time.deltaTime;
     }
 
     internal abstract bool shouldMoveBackward();
 
     private void moveForward()
     {
-        transform.position += transform.forward * Time.deltaTime;
+        transform.position += transform.forward * speed * Time.deltaTime;
     }
 
     internal abstract bool shouldMoveForward();
