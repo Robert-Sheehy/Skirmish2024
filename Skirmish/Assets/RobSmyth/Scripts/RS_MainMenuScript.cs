@@ -16,9 +16,14 @@ public class RS_MainMenuScript : MonoBehaviour
         Application.Quit();
     }
 
-    //public void PauseGame()
-    //{
-    //    Time.timeScale = 0;
-    //    SceneManager.LoadScene(0);
-    //}
+
+
+    public void PauseGame()
+    {
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Time.timeScale = 0;
+            SceneManager.LoadScene(0);
+        }
+    }
 }

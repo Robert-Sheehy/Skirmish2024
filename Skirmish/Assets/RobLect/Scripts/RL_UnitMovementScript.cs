@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
 public class RL_UnitMovementScript : MonoBehaviour,IDamagable
 {   internal enum UnitState { Firing, Moving, Idle, Melee }
     internal UnitState state = UnitState.Idle;
