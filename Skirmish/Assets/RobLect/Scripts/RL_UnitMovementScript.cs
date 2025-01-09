@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class RL_UnitMovementScript : MonoBehaviour
-{   enum ArcherState { Firing, Moving, Idle, Melee }
-    ArcherState state = ArcherState.Idle;
-    float speed = 3f;
-   // float turningSpeed = 45f;
-    private Vector3 destination;
+
+public class RL_UnitMovementScript : MonoBehaviour,IDamagable
+{   internal enum UnitState { Firing, Moving, Idle, Melee }
+    internal UnitState state = UnitState.Idle;
+    internal float speed = 3f;
+    internal float turningSpeed = 45f;
+    internal Vector3 destination;
 
     // Start is called before the first frame update
     void Start()
@@ -18,14 +19,14 @@ public class RL_UnitMovementScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    internal void Update()
     {
    switch(state)
         {
-            case ArcherState.Firing:
+            case UnitState.Firing:
                 break;
 
-            case ArcherState.Moving:
+            case UnitState.Moving:
 
                 transform.LookAt(new Vector3(destination.x, transform.position.y, destination.z));
                 transform.position += speed *transform.forward* Time.deltaTime;
@@ -34,11 +35,11 @@ public class RL_UnitMovementScript : MonoBehaviour
 
                 break;
 
-            case ArcherState.Idle:
+            case UnitState.Idle:
 
 
                 break;
-            case ArcherState.Melee:
+            case UnitState.Melee:
 
                 break;
 
@@ -51,9 +52,12 @@ public class RL_UnitMovementScript : MonoBehaviour
     internal void MoveTo(Vector3 targetLocation)
     {
         destination = targetLocation;
-        state = ArcherState.Moving;
+        state = UnitState.Moving;
 
     }
 
-
+    public void takeDamage(int damage)
+    {
+        throw new NotImplementedException();
+    }
 }
